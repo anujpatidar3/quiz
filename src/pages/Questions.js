@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useAxios from '../hooks/useAxios';
-import { handleScoreChange } from '../redux/actions';
+import { handleAmountChange, handleScoreChange } from '../redux/actions';
 
 const getRandomInt = (max) => {
     return Math.floor(Math.random() * Math.floor(max))
@@ -52,13 +52,28 @@ const Questions = () => {
         }
     }, [response, questionIndex])
 
-    console.log(response)
-
     if (loading) {
         return (
             <Box mt={20}>
                 <CircularProgress />
             </Box>
+        )
+    }
+
+    const handleBackToSettings = () => {
+        dispatch(handleScoreChange(0))
+        dispatch(handleAmountChange(10))
+        navigate("/")
+    }
+
+    if (response.response_code === 1) {
+        return (
+            <div>
+                <Box mt={20}>
+                    <Typography variant="h4" mb={5}>Sorry, We don't have questions in this category. Please choose another one</Typography>
+                </Box>
+                <Button variant='outlined' onClick={handleBackToSettings}>Back to Settings?</Button>
+            </div>
         )
     }
 

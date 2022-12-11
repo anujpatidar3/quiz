@@ -34,8 +34,7 @@ const Settings = () => {
 
     const typeOptions = [
         { id: 'multiple', name: "Multiple Choice" },
-        { id: 'single', name: "True/False" }
-
+        { id: 'boolean', name: "True/False" }
     ]
 
     const handleSubmit = (e) => {
